@@ -14,7 +14,7 @@ after_success:
   - docker build -t orphord/multi-server ./server
   - docker build -t orphord/multi-worker ./worker
   # Log in to docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$docker_password" | docker login -u "$docker_id" --password-stdin
   # Push images --> docker hub
   - docker push orphord/multi-client
   - docker push orphord/multi-nginx
