@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t orphord/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run orphord/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t orphord/multi-client ./client
+  - docker build -t orphord/multi-nginx ./nginx
+  - docker build -t orphord/multi-server ./server
+  - docker build -t orphord/multi-worker ./worker
+
+  # Log in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Push images --> docker hub
+  - docker push orphord/multi-client
+  - docker push orphord/multi-nginx
+  - docker push orphord/multi-server
+  - docker push orphord/multi-worker
