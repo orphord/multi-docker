@@ -5,19 +5,22 @@
       "name": "client",
       "image": "orphord/multi-client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory": 256
     },
     {
       "name": "server",
       "image": "orphord/multi-server",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory": 256
     },
     {
       "name": "worker",
       "image": "orphord/multi-worker",
       "hostname": "worker",
-      "essential": false
+      "essential": false,
+      "memory": 256
     },
     {
       "name": "nginx",
@@ -30,7 +33,8 @@
           "containerPort": 80
         }
       ],
-      "links": ["client","server"]
+      "links": ["client","server"],
+      "memory": 256
     }
   ]
 }
